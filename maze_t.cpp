@@ -109,15 +109,15 @@ maze_t::write(ostream& os) const
 bool
 maze_t::is_ok_(const int i, const int j) const 
 {
-  if ( visited_(i,j) == false && i < matrix_.get_m() && j < matrix_.get_n() && matrix_.at(i,j) != 1) return true;
   // retornar true si se cumplen TODAS estas condiciones:
   // - fila i y la columna j están dentro de los límites del laberinto,
   // - la celda en (i, j) no puede ser un muro,
   // - la celda (i, j) no puede haber sido visitada antes.
+  if ((i > 0 && i <= matrix_.get_m()) && (j > 0 && j <= matrix_.get_n()) && 
+  (matrix_(i, j) != 1) && (visited_(i,j) == false)) return true;
+
   return false;
 }
-
-
 
 // FASE II y FASE III
 // método recursivo que resuelve el laberinto
@@ -126,7 +126,7 @@ maze_t::solve_(const int i, const int j)
 {
   // CASO BASE:
   // retornar 'true' si 'i' y 'j' han llegado a la salida
-
+  if (i == i_end_ && j == j_end_) return true;
   // [poner código aquí]
 
   // marcamos la celda como visitada
@@ -134,6 +134,14 @@ maze_t::solve_(const int i, const int j)
   
   // CASO GENERAL:
   // para cada una de las 4 posibles direcciones (N, E, S, W) ver si es posible
+  for (int k{0}; k < 4; ++k) {
+    if (is_ok_(i + i_d[k], j + j_d[k])) {
+      if (solve_(i + i_d[k], j + j_d[k]) == true) {
+        matrix_(i + i_d[k], j + j_d[k]) = PATH_ID;
+        return true;
+      }
+    }
+  }
   // el desplazamiento (is_ok_) y, en ese caso, intentar resolver el laberinto
   // llamando recursivamente a 'solve'. 
   // Si la llamada devuelve 'true', poner en la celda el valor PATH_ID, y
