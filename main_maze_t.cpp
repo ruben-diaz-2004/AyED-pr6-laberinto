@@ -15,15 +15,15 @@
 
 using namespace std;
 
-int main()
-{ 
+int main() { 
+  dll_t<pair_t<int>> salida;
   maze_t M;
   
   cin >> M;
   
   cout << M << endl;
   
-  if (M.solve())
+  if (M.solve(salida))
   { 
     cout << "¡¡ Se ha encontrado una salida al laberinto !!" << endl;
     cout << M << endl;
