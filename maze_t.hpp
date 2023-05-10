@@ -66,14 +66,14 @@ public:
   ~maze_t();
 
   // método para resolver el laberinto y que invoca al otro método recursivo
-  bool solve(dll_t<pair_t<int>>&);
+  bool solve(dll_t<pair_t<int>>&, int&);
 
   istream& read(istream& = cin);
   ostream& write(ostream& = cout) const;
   
 private:
   bool is_ok_(const int, const int) const;
-  bool solve_(const int, const int, dll_t<pair_t<int>>&);
+  bool solve_(const int, const int, dll_t<pair_t<int>>&, int&);
 };
 
 istream& operator>>(istream&, maze_t&);

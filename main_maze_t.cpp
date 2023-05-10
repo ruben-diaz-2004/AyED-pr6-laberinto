@@ -17,13 +17,14 @@ using namespace std;
 
 int main() { 
   dll_t<pair_t<int>> salida;
+  int cuentapasos{0};
   maze_t M;
   
   cin >> M;
   
   cout << M << endl;
   
-  if (M.solve(salida))
+  if (M.solve(salida, cuentapasos))
   { 
     cout << "¡¡ Se ha encontrado una salida al laberinto !!" << endl;
     cout << M << endl;
@@ -31,5 +32,6 @@ int main() {
   else
     cout << "No se ha podido encontrar la salida del laberinto..." << endl;
   
+  cout << "Número de pasos hacia el sur: " << cuentapasos << endl;
   return 1;
 }

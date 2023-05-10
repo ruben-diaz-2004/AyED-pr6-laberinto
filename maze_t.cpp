@@ -30,9 +30,9 @@ maze_t::~maze_t()
 
 // método que resuelve el laberinto invocando al método recursivo
 bool
-maze_t::solve(dll_t<pair_t<int>>& salida)
+maze_t::solve(dll_t<pair_t<int>>& salida, int& cuentapasos)
 {
-  return solve_(i_start_, j_start_, salida);
+  return solve_(i_start_, j_start_, salida, cuentapasos);
 }
 
 
@@ -122,7 +122,7 @@ maze_t::is_ok_(const int i, const int j) const
 // FASE II y FASE III
 // método recursivo que resuelve el laberinto
 bool
-maze_t::solve_(const int i, const int j, dll_t<pair_t<int>>& salida)
+maze_t::solve_(const int i, const int j, dll_t<pair_t<int>>& salida, int& cuentapasos)
 {
   // CASO BASE:
   // retornar 'true' si 'i' y 'j' han llegado a la salida
@@ -136,10 +136,11 @@ maze_t::solve_(const int i, const int j, dll_t<pair_t<int>>& salida)
   // para cada una de las 4 posibles direcciones (N, E, S, W) ver si es posible
   for (int k{0}; k < 4; ++k) {
     if (is_ok_(i + i_d[k], j + j_d[k])) {
-      if (solve_(i + i_d[k], j + j_d[k], salida) == true) {
+      if (solve_(i + i_d[k], j + j_d[k], salida, cuentapasos) == true) {
         pair_t<int>* dato = new pair_t<int>(i + i_d[k], j + j_d[k]);
         dll_node_t<pair_t<int>>* puntero_nodo = new dll_node_t<pair_t<int>>(* dato);
         salida.push_front(puntero_nodo);
+        if (i_d[k] == 1 && j_d[k] == 0) cuentapasos++;
       //  salida.push_front( new dll_node_t<pair_t<int>>(*(dato)));
         matrix_(i + i_d[k], j + j_d[k]) = PATH_ID;
         return true;
