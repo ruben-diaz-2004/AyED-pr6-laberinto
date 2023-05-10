@@ -33,5 +33,12 @@ int main() {
     cout << "No se ha podido encontrar la salida del laberinto..." << endl;
   
   cout << "Número de pasos hacia el sur: " << cuentapasos << endl;
+
+  dll_node_t<pair_t<int>>* aux;
+  aux = salida.get_head();
+  while (aux != NULL) {
+    cout << "(" << aux->get_data().get_inx() << ", " << aux->get_data().get_val() << ") ";
+    aux = aux->get_next();
+  }
   return 1;
 }
