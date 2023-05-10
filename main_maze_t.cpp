@@ -40,5 +40,7 @@ int main() {
     cout << "(" << aux->get_data().get_inx() << ", " << aux->get_data().get_val() << ") ";
     aux = aux->get_next();
   }
+  cout << endl;
+  
   return 1;
 }
